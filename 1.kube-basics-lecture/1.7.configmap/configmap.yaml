@@ -1,0 +1,19 @@
+---
+# file: practice/1.kube-basics-lecture/1.7.configmap/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: my-configmap
+data:
+  default.conf: |
+    server {
+        listen       80 default_server;
+        server_name  _;
+
+        default_type text/plain;
+
+        location / {
+            return 200 '$hostname\n';
+        }
+    }
+...

@@ -1,0 +1,18 @@
+---
+# file: practice/1.kube-basics-lecture/1.9.ingress/ingress.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: my-ingress
+spec:
+  rules:
+  - host: my-app.s<номер своего логина>.edu.slurm.io
+    http:
+      paths:
+      - pathType: ImplementationSpecific
+        backend:
+          service:
+            name: my-service
+            port:
+              number: 80
+...

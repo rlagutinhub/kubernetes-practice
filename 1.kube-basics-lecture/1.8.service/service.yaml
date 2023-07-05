@@ -1,0 +1,14 @@
+---
+# file: practice/1.kube-basics-lecture/1.8.service/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-service
+spec:
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    app: my-app
+  type: ClusterIP
+...

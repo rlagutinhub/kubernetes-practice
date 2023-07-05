@@ -1,0 +1,31 @@
+stages:
+  - build
+  - test
+  - cleanup
+
+build:
+  stage: build
+  script:
+    - docker build -t $CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$CI_COMMIT_REF_SLUG.$CI_PIPELINE_ID .
+
+test:
+  stage: test
+  image:
+    name: docker/compose:1.23.2
+    entrypoint: [""]
+  script:
+    - docker-compose 
+        -p "$CI_PROJECT_NAME"_"$CI_PIPELINE_ID"
+      up
+        --abort-on-container-exit
+        --exit-code-from app
+        --quiet-pull
+
+cleanup:
+  stage: cleanup
+  image:
+    name: docker/compose:1.23.2
+    entrypoint: [""]
+  script:
+    - docker-compose -p "$CI_PROJECT_NAME"_"$CI_PIPELINE_ID" down
+  when: always
